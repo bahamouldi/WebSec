@@ -1,1 +1,113 @@
-/* You can add global styles to this file, and also import other style files */
+/* styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary: #1e3a8a; /* Bleu profond */
+  --secondary: #10b981; /* Vert émeraude */
+  --danger: #ef4444; /* Rouge */
+  --warning: #f59e0b; /* Jaune */
+  --background: #f0f4f8; /* Fond gris clair doux */
+  --text: #1f2937; /* Gris foncé */
+  --light: #ffffff; /* Blanc */
+  --shadow: rgba(0, 0, 0, 0.15);
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  overflow-x: hidden;
+  /* padding-top: 80px; */ /* Commenté car nous utilisons .main-content */
+}
+
+.main-content {
+  padding-top: 100px; /* Correspond à la hauteur de la barre de navigation */
+}
+
+.container {
+  padding: 20px;
+}
+
+.card {
+  border: none;
+  border-radius: 16px;
+  background: var(--light);
+  box-shadow: 0 8px 24px var(--shadow);
+  transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: perspective(1000px) rotateX(2deg) rotateY(-2deg);
+  box-shadow: 0 12px 36px var(--shadow);
+}
+
+.btn {
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-weight: 500;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px var(--shadow);
+}
+
+.btn-primary {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn-primary:hover {
+  background: #1e40af;
+  border-color: #1e40af;
+}
+
+.btn-success {
+  background: var(--secondary);
+  border-color: #1e3a8a;
+}
+
+.btn-success:hover {
+  background: #0d905d;
+  border-color: #0d905d;
+}
+
+.btn-danger {
+  background: var(--danger);
+  border-color: var(--danger);
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+  border-color: #dc2626;
+}
+
+.alert {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow);
+  animation: slideIn 0.5s ease;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding-top: 90px; /* Ajusté pour les petits écrans */
+  }
+  .card {
+    transform: none; /* Désactiver effet 3D sur mobile pour performance */
+  }
+  .card:hover {
+    transform: none;
+    box-shadow: 0 6px 12px var(--shadow);
+  }
+  .btn {
+    padding: 10px 16px;
+  }
+}

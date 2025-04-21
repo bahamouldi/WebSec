@@ -1,0 +1,27 @@
+<div class="container py-8">
+  <div class="flex justify-between items-center mb-8">
+    <h2 class="text-3xl font-bold text-cyber-blue">Rapport de scan</h2>
+    <button class="btn btn-primary flex items-center" (click)="downloadPDF()" [disabled]="isLoading">
+      <i class="bi bi-download mr-2"></i> PDF
+    </button>
+  </div>
+
+  <div *ngIf="isLoading" class="text-center py-4">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-2">Chargement du rapport...</p>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger alert-dismissible fade show mb-4">
+    <i class="bi bi-exclamation-triangle mr-2 h-5 w-5"></i> {{ error }}
+    <button type="button" class="btn-close" (click)="error = null"></button>
+  </div>
+
+  <div *ngIf="emailAlertSent" class="alert alert-warning alert-dismissible fade show mb-4">
+    <i class="bi bi-exclamation-circle mr-2 h-5 w-5"></i> Alerte critique envoyée par email.
+    <button type="button" class="btn-close" (click)="emailAlertSent = false"></button>
+  </div>
+
+  <div *ngIf="reportHtml && !isLoading" class="report-content p-4 border border-gray-200 rounded-lg">
+    <div [innerHTML]="reportHtml | safeHtml"></div>
+  </div>
+</div>

@@ -1,0 +1,102 @@
+<div class="container">
+  <!-- Message de bienvenue -->
+  <div class="row mb-4">
+    <div class="col">
+      <h1 class="text-cyber-blue">
+        Bienvenue, {{ userName || 'Utilisateur' }}. Gérez vos scans de sécurité.
+      </h1>
+      <p *ngIf="message" class="alert alert-success">{{ message }}</p>
+    </div>
+    <div class="col-auto">
+      <a class="btn btn-primary" [routerLink]="['/scan']">Lancer un nouveau scan</a>
+    </div>
+  </div>
+
+  <!-- Statistiques -->
+  <div class="row mb-5">
+    <div class="col-md-3 col-sm-6 mb-4">
+      <div class="card p-3 text-center">
+        <i class="bi bi-shield-fill mb-2 text-primary"></i>
+        <h5>Total scans</h5>
+        <p class="fw-bold fs-4">{{ stats.totalScans }}</p>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-4">
+      <div class="card p-3 text-center">
+        <i class="bi bi-check-circle-fill mb-2 text-success"></i>
+        <h5>Scans terminés</h5>
+        <p class="fw-bold fs-4">{{ stats.completedScans }}</p>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-4">
+      <div class="card p-3 text-center">
+        <i class="bi bi-hourglass-split mb-2 text-warning"></i>
+        <h5>Scans en cours</h5>
+        <p class="fw-bold fs-4">{{ stats.runningScans }}</p>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-4">
+      <div class="card p-3 text-center">
+        <i class="bi bi-exclamation-triangle-fill mb-2 text-danger"></i>
+        <h5>Vulnérabilités critiques</h5>
+        <p class="fw-bold fs-4">{{ stats.criticalVulnerabilities }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Résumé des vulnérabilités (utiliser SummaryComponent) -->
+  <div class="row mb-4">
+    <div class="col">
+      <app-summary [vulnerabilities]="latestVulnerabilities"></app-summary>
+    </div>
+  </div>
+
+  <!-- Scans récents -->
+  <div class="row mb-4">
+    <div class="col">
+      <h2 class="text-cyber-blue">Scans récents <a class="text-primary fs-6" [routerLink]="['/stats']">Voir toutes les statistiques</a></h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 mb-4" *ngFor="let scan of scans">
+      <div class="card p-4">
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <h5 class="text-primary">{{ scan.url }}</h5>
+            <p class="mb-1">
+              <span class="badge" [ngClass]="{
+                'bg-success': scan.statutAnalyse === 'TERMINE',
+                'bg-warning': scan.statutAnalyse === 'EN_COURS',
+                'bg-danger': scan.statutAnalyse === 'ECHEC'
+              }">
+                {{ scan.statutAnalyse }}
+              </span>
+            </p>
+            <p class="text-muted small mb-1">
+              <i class="bi bi-play-circle me-1"></i> Début: {{ scan.dateCreation | date:'dd/MM/yyyy HH:mm:ss' }}
+            </p>
+            <p class="text-muted small mb-1">
+              <i class="bi bi-stop-circle me-1"></i> Fin: {{ scan.dateFin ? (scan.dateFin | date:'dd/MM/yyyy HH:mm:ss') : 'N/A' }}
+            </p>
+            <!-- Détails des vulnérabilités -->
+            <p class="mb-2">Vulnérabilités détectées :</p>
+            <div class="vulnerabilities d-flex flex-wrap gap-2">
+              <span class="badge bg-danger text-white">Critique: {{ scan.vulnerabilities?.critical || 0 }}</span>
+              <span class="badge bg-warning text-white">Élevée: {{ scan.vulnerabilities?.high || 0 }}</span>
+              <span class="badge bg-info text-white">Moyenne: {{ scan.vulnerabilities?.medium || 0 }}</span>
+              <span class="badge bg-success text-white">Faible: {{ scan.vulnerabilities?.low || 0 }}</span>
+              <span class="badge bg-primary text-white">Info: {{ scan.vulnerabilities?.info || 0 }}</span>
+            </div>
+          </div>
+          <!-- Bouton Voir rapport -->
+          <button class="btn btn-primary mt-3" 
+                  [routerLink]="['/report-view', scan.scanResultId]" 
+                  [disabled]="scan.statutAnalyse !== 'TERMINE' || !scan.scanResultId">
+            Voir rapport
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

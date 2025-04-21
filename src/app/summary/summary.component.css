@@ -1,0 +1,27 @@
+.summary {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .summary h3 {
+    margin: 0 0 10px;
+    font-size: 1.2em;
+    color: #34495e;
+  }
+  
+  .vulnerability-counts {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .vulnerability-counts span {
+    font-size: 1em;
+  }
+  
+  .critical { color: #e74c3c; }
+  .high { color: #f39c12; }
+  .medium { color: #3498db; }
+  .low { color: #2ecc71; }
+  .info { color: #2980b9; }

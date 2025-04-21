@@ -1,0 +1,58 @@
+<div class="container py-8 flex justify-center">
+  <div class="w-full max-w-md">
+    <h2 class="text-2xl font-bold text-cyber-blue mb-2 text-center">
+      {{ progress < 100 ? 'Préparation du scan...' : 'Scan terminé !' }}
+    </h2>
+    <p class="text-center text-gray-600 mb-4">
+      Scan de sécurité en cours pour {{ scanId }}
+    </p>
+
+    <div *ngIf="isLoading" class="text-center py-4">
+      <div class="spinner-border text-primary" role="status"></div>
+      <p class="mt-2 text-gray-600">Initialisation...</p>
+    </div>
+
+    <div *ngIf="error" class="alert alert-danger alert-dismissible fade show mb-4">
+      <i class="bi bi-exclamation-triangle me-2"></i> {{ error }}
+      <button type="button" class="btn-close" (click)="error = null"></button>
+    </div>
+
+    <div *ngIf="message" class="alert alert-info alert-dismissible fade show mb-4">
+      <i class="bi bi-info-circle me-2"></i> {{ message }}
+      <button type="button" class="btn-close" (click)="message = null"></button>
+    </div>
+
+    <div *ngIf="!isLoading && !error" class="card p-4 shadow-sm">
+      <!-- Progression -->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <span class="text-gray-600">Progression</span>
+        <span class="text-cyber-blue font-semibold">{{ progress }}%</span>
+      </div>
+
+      <!-- Barre de progression -->
+      <div class="progress mb-4" style="height: 10px;">
+        <div class="progress-bar bg-primary" role="progressbar" 
+             [style.width]="progress + '%'" [attr.aria-valuenow]="progress" 
+             aria-valuemin="0" aria-valuemax="100">
+        </div>
+      </div>
+
+      <!-- Icône de bouclier -->
+      <div class="text-center my-4">
+        <i class="bi bi-shield-check text-cyber-blue" style="font-size: 3rem;"></i>
+      </div>
+
+      <!-- Statut du scan -->
+      <p class="text-center text-gray-600 mb-4">
+        {{ progress < 100 ? 'Scan en cours...' : 'Scan terminé !' }}
+      </p>
+
+      <!-- Bouton Retour -->
+      <div class="text-center">
+        <a [routerLink]="['/dashboard']" class="btn btn-outline-primary">
+          Retour au tableau de bord
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

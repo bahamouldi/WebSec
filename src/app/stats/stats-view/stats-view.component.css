@@ -1,0 +1,43 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.text-cyber-blue {
+  color: #1e3a8a;
+}
+
+.text-primary {
+  color: #1976d2;
+}
+
+canvas {
+  max-height: 300px;
+}
+
+.alert {
+  padding: 12px;
+  border-radius: 6px;
+}
+
+.alert-danger {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.alert-info {
+  background-color: #e0f2fe;
+  color: #1e40af;
+}
+
+.spinner-border {
+  width: 2rem;
+  height: 2rem;
+  border-width: 3px;
+}
+
+@media (max-width: 768px) {
+  .grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+}

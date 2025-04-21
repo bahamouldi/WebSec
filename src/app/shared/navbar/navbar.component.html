@@ -1,0 +1,67 @@
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <!-- Logo -->
+    <a class="navbar-brand d-flex align-items-center" [routerLink]="['/']">
+      <i class="bi bi-shield-lock-fill mr-2"></i>
+      <span>WebSec</span>
+    </a>
+
+    <!-- Bouton Hamburger pour mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon">
+        <i class="bi bi-list"></i>
+      </span>
+    </button>
+
+    <!-- Liens de navigation -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item" *ngIf="isAuthenticated()">
+          <a class="nav-link" [routerLink]="['/dashboard']" [routerLinkActive]="['active']">
+            Tableau de bord
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="isAuthenticated()">
+          <a class="nav-link" [routerLink]="['/scan']" [routerLinkActive]="['active']">
+            Nouveau scan
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="isAuthenticated()">
+          <a class="nav-link" [routerLink]="['/stats']" [routerLinkActive]="['active']">
+            Statistiques
+          </a>
+        </li>
+        <li class="nav-item dropdown" *ngIf="isAuthenticated() && authService.getRole() === 'ADMIN'">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            Admin
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]="['/admin/dashboard']">Tableau de bord</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/admin/users']">Utilisateurs</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Actions utilisateur -->
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item" *ngIf="!isAuthenticated()">
+          <a class="nav-link" [routerLink]="['/login']">Connexion</a>
+        </li>
+        <li class="nav-item" *ngIf="!isAuthenticated()">
+          <a class="nav-link" [routerLink]="['/register']">Inscription</a>
+        </li>
+        <li class="nav-item" *ngIf="isAuthenticated()">
+          <a class="nav-link user-name" [routerLink]="['/profile']">
+            {{ userName || 'Utilisateur' }}
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="isAuthenticated()">
+          <button class="nav-link btn-logout" (click)="logout()">
+            Déconnexion
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

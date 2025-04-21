@@ -1,0 +1,42 @@
+<div class="container py-8">
+  <h2 class="text-3xl font-bold text-cyber-blue mb-8">Tableau de bord Admin</h2>
+
+  <div class="flex justify-between items-center mb-8 flex-wrap gap-4">
+    <a [routerLink]="['/scan']" class="btn btn-primary inline-flex items-center">
+      <i class="bi bi-play-circle mr-2"></i> Nouveau scan
+    </a>
+    <a [routerLink]="['/admin/users']" class="btn btn-primary inline-flex items-center">
+      <i class="bi bi-people mr-2"></i> Gestion des utilisateurs
+    </a>
+  </div>
+
+  <h3 class="text-xl font-semibold text-cyber-blue mb-4">Utilisateurs</h3>
+
+  <div *ngIf="isLoading" class="text-center py-4">
+    <div class="spinner-border text-primary" role="status"></div>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger alert-dismissible fade show mb-4">
+    <i class="bi bi-exclamation-triangle mr-2 h-5 w-5"></i> {{ error }}
+    <button type="button" class="btn-close" (click)="error = null"></button>
+  </div>
+
+  <div class="border border-gray-200 rounded-lg overflow-hidden" *ngIf="!isLoading && !error">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Email</th>
+          <th>Rôle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.nom }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.role }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

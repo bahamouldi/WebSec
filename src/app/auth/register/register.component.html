@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="card">
+    <div class="card-body p-4 text-center">
+      <!-- Shield Icon -->
+      <i class="fas fa-shield-alt shield-icon" aria-hidden="true"></i>
+
+      <!-- Title and Subtitle -->
+      <h2 class="mb-2">Créer un compte</h2>
+      <p class="subtitle mb-4">
+        Rejoignez CyberScanGuardian et commencez à sécuriser vos applications
+      </p>
+
+      <!-- Error Message -->
+      <div *ngIf="error" class="alert alert-danger alert-dismissible fade show">
+        <i class="bi bi-exclamation-triangle me-2"></i> {{ error }}
+        <button type="button" class="btn-close" (click)="error = null"></button>
+      </div>
+
+      <!-- Loading Spinner -->
+      <div *ngIf="isLoading" class="text-center py-3">
+        <div class="spinner-border text-primary" role="status"></div>
+      </div>
+
+      <!-- Form -->
+      <form (ngSubmit)="onSubmit()" #registerForm="ngForm" *ngIf="!isLoading">
+        <!-- Nom complet -->
+        <div class="mb-3">
+          <label for="nom" class="form-label">Nom complet</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person"></i></span>
+            <input type="text" class="form-control" id="nom" [(ngModel)]="user.nom" name="nom" placeholder="John Doe" required>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <input type="email" class="form-control" id="email" [(ngModel)]="user.email" name="email" placeholder="you@example.com" required>
+          </div>
+        </div>
+
+        <!-- Mot de passe -->
+        <div class="mb-3">
+          <label for="motDePasse" class="form-label">Mot de passe</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+            <input type="password" class="form-control" id="motDePasse" [(ngModel)]="user.motDePasse" name="motDePasse" placeholder="********" required>
+          </div>
+        </div>
+
+        <!-- Confirmer le mot de passe -->
+        <div class="mb-3">
+          <label for="confirmMotDePasse" class="form-label">Confirmer le mot de passe</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+            <input type="password" class="form-control" id="confirmMotDePasse" [(ngModel)]="user.confirmMotDePasse" name="confirmMotDePasse" placeholder="********" required>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary w-100" [disabled]="!registerForm.valid || isLoading">
+          {{ isLoading ? 'Inscription...' : 'Créer un compte' }}
+        </button>
+
+        <!-- Footer Link -->
+        <p class="text-center mt-3">
+          Déjà un compte ? <a routerLink="/login" class="text-primary">Se connecter</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>

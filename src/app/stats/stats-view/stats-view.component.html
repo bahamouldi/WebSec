@@ -1,0 +1,43 @@
+<div class="container py-8">
+  <h2 class="text-3xl font-bold text-cyber-blue mb-8 text-center">Statistiques globales</h2>
+
+  <div *ngIf="isLoading" class="text-center py-4">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-2">Chargement des statistiques...</p>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger alert-dismissible fade show mb-4">
+    <i class="bi bi-exclamation-triangle mr-2 h-5 w-5"></i> {{ error }}
+    <button type="button" class="btn-close" (click)="error = null"></button>
+  </div>
+
+  <div *ngIf="stats && !isLoading">
+    <div class="mb-8">
+      <div class="border border-gray-200 rounded-lg p-4 text-center">
+        <h3 class="text-xl font-semibold text-cyber-blue mb-2">Nombre total de scans</h3>
+        <p class="text-4xl font-bold text-primary">{{ stats.scanCount }}</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="border border-gray-200 rounded-lg p-4">
+        <h3 class="text-xl font-semibold text-cyber-blue text-center mb-4">Par gravité</h3>
+        <canvas baseChart
+                [data]="severityChartData"
+                [options]="chartOptions"
+                [type]="'doughnut'"></canvas>
+      </div>
+      <div class="border border-gray-200 rounded-lg p-4">
+        <h3 class="text-xl font-semibold text-cyber-blue text-center mb-4">Par type</h3>
+        <canvas baseChart
+                [data]="typeChartData"
+                [options]="chartOptions"
+                [type]="'bar'"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && !stats && !error" class="alert alert-info text-center py-3">
+    <i class="bi bi-info-circle mr-2 h-5 w-5"></i> Aucune statistique disponible.
+  </div>
+</div>

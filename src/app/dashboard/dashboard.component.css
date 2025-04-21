@@ -1,0 +1,59 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 80px; /* Pour éviter que la navbar ne masque le contenu */
+}
+
+.text-cyber-blue {
+  color: #1e3a8a;
+}
+
+.text-primary {
+  color: #1976d2;
+}
+
+.card {
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.badge {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.vulnerabilities .badge {
+  min-width: 100px; /* Pour uniformiser la taille des badges */
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: #1976d2;
+  border-color: #1976d2;
+}
+
+.btn-primary:hover {
+  background-color: #1565c0;
+  border-color: #1565c0;
+}
+
+.btn-primary:disabled {
+  background-color: #b0bec5;
+  border-color: #b0bec5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 576px) {
+  .vulnerabilities {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .vulnerabilities .badge {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}

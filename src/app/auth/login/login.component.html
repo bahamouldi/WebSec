@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="card">
+    <div class="card-body p-4 text-center">
+      <!-- Shield Icon -->
+      <i class="fas fa-shield-alt shield-icon" aria-hidden="true"></i>
+
+      <!-- Title and Subtitle -->
+      <h2 class="mb-2">Connexion</h2>
+      <p class="subtitle mb-4">
+        Accédez à votre tableau de bord CyberScanGuardian
+      </p>
+
+      <!-- Message -->
+      <div *ngIf="message" class="alert alert-info alert-dismissible fade show">
+        <i class="bi bi-info-circle me-2"></i> {{ message }}
+        <button type="button" class="btn-close" (click)="message = null"></button>
+      </div>
+
+      <!-- Error Message -->
+      <div *ngIf="error" class="alert alert-danger alert-dismissible fade show">
+        <i class="bi bi-exclamation-triangle me-2"></i> {{ error }}
+        <button type="button" class="btn-close" (click)="error = null"></button>
+      </div>
+
+      <!-- Loading Spinner -->
+      <div *ngIf="isLoading" class="text-center py-3">
+        <div class="spinner-border text-primary" role="status"></div>
+      </div>
+
+      <!-- Form -->
+      <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <input type="email" class="form-control" id="email" [(ngModel)]="credentials.email" name="email" placeholder="you@example.com" required>
+          </div>
+        </div>
+
+        <!-- Mot de passe -->
+        <div class="mb-3">
+          <label for="motDePasse" class="form-label">Mot de passe</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+            <input type="password" class="form-control" id="motDePasse" [(ngModel)]="credentials.motDePasse" name="motDePasse" placeholder="********" required>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary w-100" [disabled]="!loginForm.valid || isLoading">
+          {{ isLoading ? 'Connexion...' : 'Se connecter' }}
+        </button>
+
+        <!-- Footer Link -->
+        <p class="text-center mt-3">
+          Pas encore de compte ? <a routerLink="/register" class="text-primary">S'inscrire</a>
+        </p>
+
+        <!-- Demo Accounts -->
+        
+      </form>
+    </div>
+  </div>
+</div>
