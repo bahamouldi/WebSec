@@ -1,0 +1,33 @@
+<div class="container py-8">
+    <h2 class="text-3xl font-bold text-cyber-blue mb-8">Scans de l'utilisateur {{ userId }}</h2>
+  
+    <div *ngIf="isLoading" class="text-center py-4">
+      <div class="spinner-border text-primary" role="status"></div>
+    </div>
+  
+    <div *ngIf="error" class="alert alert-danger alert-dismissible fade show mb-4">
+      <i class="bi bi-exclamation-triangle mr-2 h-5 w-5"></i> {{ error }}
+      <button type="button" class="btn-close" (click)="error = null"></button>
+    </div>
+  
+    <div class="border border-gray-200 rounded-lg overflow-hidden" *ngIf="!isLoading && !error">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>URL</th>
+            <th>Statut</th>
+            <th>Date de soumission</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let scan of scans">
+            <td>{{ scan.id }}</td>
+            <td>{{ scan.url }}</td>
+            <td>{{ scan.statutAnalyse }}</td>
+            <td>{{ scan.dateSoumission | date }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

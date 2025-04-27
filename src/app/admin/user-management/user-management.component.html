@@ -1,22 +1,14 @@
-<div class="container py-8">
-  <h2 class="text-3xl font-bold text-cyber-blue mb-8">Gestion des utilisateurs</h2>
+<div class="container py-4">
+  <h2 class="text-2xl font-semibold mb-6">Gestion des utilisateurs</h2>
 
-  <div *ngIf="isLoading" class="text-center py-4">
-    <div class="spinner-border text-primary" role="status"></div>
-  </div>
-
-  <div *ngIf="error" class="alert alert-danger alert-dismissible fade show mb-4">
-    <i class="bi bi-exclamation-triangle mr-2 h-5 w-5"></i> {{ error }}
-    <button type="button" class="btn-close" (click)="error = null"></button>
-  </div>
-
-  <div class="border border-gray-200 rounded-lg overflow-hidden" *ngIf="!isLoading && !error">
+  <div class="border border-gray-300 rounded-lg">
     <table class="table">
       <thead>
         <tr>
           <th>Nom</th>
           <th>Email</th>
           <th>Rôle</th>
+          <th>Date d'inscription</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -24,9 +16,17 @@
         <tr *ngFor="let user of users">
           <td>{{ user.nom }}</td>
           <td>{{ user.email }}</td>
-          <td>{{ user.role }}</td>
           <td>
-            <button class="btn btn-danger btn-sm inline-flex items-center" (click)="openDeleteModal(user.id)">
+            <span class="role-badge" [ngClass]="{'role-admin': user.role === 'ADMIN', 'role-user': user.role === 'USER'}">
+              {{ user.role === 'ADMIN' ? 'Admin' : 'Utilisateur' }}
+            </span>
+          </td>
+          <td>{{ user.createdAt | date:'dd/MM/yyyy' }}</td>
+          <td class="actions">
+            <a [routerLink]="['/admin/users', user.id, 'scans']" class="btn btn-scan inline-flex items-center">
+              <i class="bi bi-arrow-right-circle mr-1"></i> Scans
+            </a>
+            <button class="btn btn-delete inline-flex items-center" (click)="openDeleteModal(user.id)">
               <i class="bi bi-trash mr-1"></i> Supprimer
             </button>
           </td>
@@ -37,15 +37,15 @@
 
   <div class="modal fade" [ngClass]="{'show d-block': showModal}" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content border border-gray-200 rounded-lg">
-        <div class="modal-header border-b border-gray-200">
-          <h5 class="text-lg font-semibold text-cyber-blue">Confirmer la suppression</h5>
+      <div class="modal-content border border-gray-300 rounded-lg">
+        <div class="modal-header border-b border-gray-300">
+          <h5 class="text-lg font-semibold">Confirmer la suppression</h5>
           <button type="button" class="btn-close" (click)="closeDeleteModal()"></button>
         </div>
         <div class="modal-body">
           <p>Voulez-vous vraiment supprimer cet utilisateur ?</p>
         </div>
-        <div class="modal-footer border-t border-gray-200">
+        <div class="modal-footer border-t border-gray-300">
           <button type="button" class="btn btn-secondary" (click)="closeDeleteModal()">Annuler</button>
           <button type="button" class="btn btn-danger" (click)="confirmDelete()">Supprimer</button>
         </div>

@@ -10,6 +10,13 @@ export interface User {
   role: string;
 }
 
+export interface Scan {
+  id: string;
+  url: string;
+  statutAnalyse: string;
+  dateSoumission: Date;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -28,5 +35,9 @@ export class UserService {
 
   deleteUser(userId: string): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/admin/users/${userId}`);
+  }
+
+  getUserScans(userId: string): Observable<Scan[]> {
+    return this.http.get<Scan[]>(`${this.baseUrl}/admin/users/${userId}/scans`);
   }
 }

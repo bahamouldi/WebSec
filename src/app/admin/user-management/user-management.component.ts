@@ -1,11 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserService, User } from '../../user.service';
+import { RouterModule } from '@angular/router';
+import { UserService } from '../../user.service';
+
+interface User {
+  id: string;
+  nom: string;
+  email: string;
+  role: string;
+  createdAt?: string; // Ajouté pour la date d'inscription
+}
 
 @Component({
   selector: 'app-user-management',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './user-management.component.html',
   styleUrls: ['./user-management.component.css']
 })

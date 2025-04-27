@@ -1,16 +1,7 @@
 <div class="container py-8">
   <h2 class="text-3xl font-bold text-cyber-blue mb-8">Tableau de bord Admin</h2>
 
-  <div class="flex justify-between items-center mb-8 flex-wrap gap-4">
-    <a [routerLink]="['/scan']" class="btn btn-primary inline-flex items-center">
-      <i class="bi bi-play-circle mr-2"></i> Nouveau scan
-    </a>
-    <a [routerLink]="['/admin/users']" class="btn btn-primary inline-flex items-center">
-      <i class="bi bi-people mr-2"></i> Gestion des utilisateurs
-    </a>
-  </div>
-
-  <h3 class="text-xl font-semibold text-cyber-blue mb-4">Utilisateurs</h3>
+  <input type="text" [(ngModel)]="searchTerm" (input)="filterUsers()" placeholder="Rechercher un utilisateur..." class="mb-4 p-2 border rounded">
 
   <div *ngIf="isLoading" class="text-center py-4">
     <div class="spinner-border text-primary" role="status"></div>
@@ -31,7 +22,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of users">
+        <tr *ngFor="let user of filteredUsers">
           <td>{{ user.nom }}</td>
           <td>{{ user.email }}</td>
           <td>{{ user.role }}</td>
